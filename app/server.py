@@ -7,7 +7,7 @@ from loguru import logger
 from app.router import nyi
 from contextlib import asynccontextmanager
 
-from snippets.watchdog.WatchFolder import WatchFolder
+from utils.WatchFolder import WatchFolder
 from utils import AppSettings
 
 settings = AppSettings.AppSettings()
