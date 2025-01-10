@@ -49,14 +49,13 @@ class WatchFolder:
 
     async def start(self):
         self.observer.start()
-        logger.info("WatchFolder started")
+        logger.info("WatchFolder started.")
         # self.observer.join()
         # while True:
         #     await asyncio.sleep(1)
         #     print("Hello")
 
     def stop(self):
-        logger.info("stopping WatchFolder")
         self.observer.stop()
         self.observer.join()
-        logger.info("WatchFolder stopped")
+        logger.info("WatchFolder stopped.")

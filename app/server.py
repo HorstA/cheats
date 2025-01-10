@@ -12,11 +12,7 @@ from utils import AppSettings
 
 settings = AppSettings.AppSettings()
 
-
-async def print_task(s):
-    while True:
-        logger.info("Hello")
-        await asyncio.sleep(s)
+watchfolder = WatchFolder("./data/upload")
 
 
 @asynccontextmanager
@@ -32,7 +28,7 @@ async def lifespan(app: FastAPI):
         rotation="1 MB",
     )
     logger.success(f"Starting server with loglevel: {settings.LOG_LEVEL}")
-    watchfolder = WatchFolder("./data/upload")
+
     asyncio.create_task(watchfolder.start())
 
     ### after the application has finished ###
@@ -54,9 +50,10 @@ async def redirect_root_to_docs():
     return RedirectResponse("/docs")
 
 
-# @app.get("/nyi", description="Platzhalter")
-# def nyi():
-#     return {"output": "nyi"}
+@app.get("/stop-watch", description="stoppt den Watcher")
+def stop_watch():
+    watchfolder.stop()
+    return {"output": "WatchFolder stopped"}
 
 
 app.include_router(nyi.router)
